@@ -1,0 +1,46 @@
+<mat-progress-bar mode="indeterminate" *ngIf="(loadingService.loading$  | async)"></mat-progress-bar>
+<a mat-menu-item >
+  <span>Grid Settings</span>
+</a>
+<mat-vertical-stepper [linear]="false" #stepper *ngIf="!(loadingService.loading$  | async)">
+  <mat-step [stepControl]="setUpGridFormGroup">
+    <form [formGroup]="setUpGridFormGroup">
+      <ng-template matStepLabel>Set up grid lay out</ng-template>
+      <table style="width: 50%; margin-top: 10px;" cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Number of columns</mat-label>
+              <input type="number" matInput formControlName="numberOfColumns" >
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Number of rows</mat-label>
+              <input type="number" matInput  formControlName="numberOfRows">
+            </mat-form-field>
+          </td>
+          <td>
+            <div>
+              <button mat-button (click)="generateGrid()" [disabled]="setUpGridFormGroup.invalid" >Generate</button>
+            </div>
+          </td>         
+        </tr>
+      </table>
+      <mat-grid-list *ngIf="(gridData$ | async) as gridData" [cols]="gridData?.Config?.colCount" rowHeight="50px" >
+        <mat-grid-tile *ngFor="let tile of gridData.Tiles"
+            class="example-ripple-container mat-elevation-z4"
+            matRipple
+            (click)="gridCellClick(tile)"
+            [colspan]="tile.cols"
+            [rowspan]="tile.rows"
+            [style.background]="tile.color"
+            >        
+          </mat-grid-tile>
+      </mat-grid-list>
+      <div style="margin-top: 20px;">
+        <button mat-raised-button matStepperNext (click)="next()">Save</button>
+      </div>
+    </form>
+  </mat-step>
+</mat-vertical-stepper>

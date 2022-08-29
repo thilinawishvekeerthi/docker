@@ -1,0 +1,22 @@
+<ng-container *ngIf="!data?.confirmationDialog">
+    <h1 mat-dialog-title *ngIf="data?.title">{{data.title}}</h1>
+    <div mat-dialog-content>
+    <p *ngIf="data?.question"> {{data.question}}</p>
+    <mat-form-field appearance="fill">
+        <mat-label *ngIf="data?.questionMatLabel">{{data?.questionMatLabel}}</mat-label>
+        <input  type="number" matInput [(ngModel)]="data.mergeCellCount">
+    </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button *ngIf="data?.mergeCellCount" mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="data?.confirmationDialog">
+    <h1 mat-dialog-title *ngIf="data?.title">{{data.title}}</h1>
+    <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button  mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+    </div>
+</ng-container>

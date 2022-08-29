@@ -1,0 +1,13 @@
+<mat-progress-bar mode="indeterminate" *ngIf="loadingService.loading$ | async"></mat-progress-bar>
+<ng-container *ngIf="(gridData$ | async) as gridData">
+  <mat-grid-list [cols]="gridData?.Config?.colCount" rowHeight="150px">
+    <mat-grid-tile
+      *ngFor="let tile of gridData?.Tiles"
+      [colspan]="tile.cols"
+      [rowspan]="tile.rows"
+      [style.background]="'white'">
+      <img mat-card-image [src]="tile?.url" alt="Picture unavailable"  onerror="this.onerror=null;this.src='https://picsum.photos/1000/1000?grayscale';">
+    </mat-grid-tile>
+  </mat-grid-list>
+</ng-container>
+

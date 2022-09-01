@@ -1,0 +1,12 @@
+version: "3"
+services:
+  frontend:
+    image: angular:v1
+    ports:
+      - 80:80
+
+  backend:
+    image: node-backend:v1
+    ports:
+      - 9000:9000
+    
